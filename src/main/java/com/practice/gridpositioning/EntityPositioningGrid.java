@@ -18,9 +18,10 @@ public class EntityPositioningGrid {
     private static final int RIGHT = 2;
     private static final int UP = 3;
     private static final int DOWN = 4;
-    private static final int BACKWARD = 1;
-    private static final int FORWARD = -1;
+    private static final int BACKWARD = -1;
+    private static final int FORWARD = 1;
     private static final int MAP_SIZE_MARGIN = 2;
+    public static final String CAN_T_MOVE_MESSAGE = "You can't go to %s, face your enimy!";
 
     private List<String> entityTitles;
     private final int gridSize;
@@ -95,66 +96,79 @@ public class EntityPositioningGrid {
 
         switch (direction) {
             case LEFT:
-      //          moveLeft(userEntity);
+                moveLeft(userEntity); break;
             case RIGHT:
-        //        moveRight(userEntity);
+                moveRight(userEntity); break;
             case UP:
-         //       moveUp(userEntity);
+                moveUp(userEntity); break;
             case DOWN:
-          //      moveDown(userEntity);
+                moveDown(userEntity); break;
         }
-
     }
     private void moveLeft(Entity userEntity) {
         if (canMoveLeft(userEntity)) {
+            System.out.println("Moving left from " + userEntity.getPosition());
             moveHorizontally(userEntity, BACKWARD);
+        } else {
+            System.out.println(String.format(CAN_T_MOVE_MESSAGE, "LEFT"));
         }
     }
 
 
     private void moveRight(Entity userEntity) {
         if (canMoveRight(userEntity)) {
+            System.out.println("Moving right from " + userEntity.getPosition());
             moveHorizontally(userEntity, FORWARD);
+        } else {
+            System.out.println(String.format(CAN_T_MOVE_MESSAGE, "RIGHT"));
         }
     }
 
     private void moveUp(Entity userEntity) {
         if (canMoveUp(userEntity)) {
+            System.out.println("Moving up from " + userEntity.getPosition());
             moveVertically(userEntity, BACKWARD);
+        } else {
+            System.out.println(String.format(CAN_T_MOVE_MESSAGE, "UP"));
         }
     }
 
     private void moveDown(Entity userEntity) {
         if (canMoveDown(userEntity)) {
+            System.out.println("Moving down from " + userEntity.getPosition());
             moveVertically(userEntity, FORWARD);
+        } else {
+            System.out.println(String.format(CAN_T_MOVE_MESSAGE, "DOWN"));
         }
     }
 
     private boolean canMoveLeft(Entity userEntity) {
-        return ((int) userEntity.getPosition().getX()) > 0;
-    }
-
-    private boolean canMoveRight(Entity userEntity) {
-        return ((int) userEntity.getPosition().getX()) < gridSize;
-    }
-
-    private boolean canMoveUp(Entity userEntity) {
         return ((int) userEntity.getPosition().getY()) > 0;
     }
 
-    private boolean canMoveDown(Entity userEntity) {
+    private boolean canMoveRight(Entity userEntity) {
         return ((int) userEntity.getPosition().getY()) < gridSize;
+    }
+
+    private boolean canMoveUp(Entity userEntity) {
+        return ((int) userEntity.getPosition().getX()) > 0;
+    }
+
+    private boolean canMoveDown(Entity userEntity) {
+        return ((int) userEntity.getPosition().getX()) < gridSize;
     }
 
     private void moveHorizontally(Entity userEntity, int distance) {
         grid[(int) userEntity.getPosition().getX()][(int) userEntity.getPosition().getY()] = '\u0000';
-        userEntity.setPosition(new Point((int) userEntity.getPosition().getX() + distance, (int) userEntity.getPosition().getY()));
+        userEntity.setPosition(new Point((int) userEntity.getPosition().getX(), (int) userEntity.getPosition().getY() + distance));
         grid[(int) userEntity.getPosition().getX()][(int) userEntity.getPosition().getY()] = userEntity.getName();
+        System.out.printf("Moved to (%s, %s)\n", userEntity.getPosition().getX(), userEntity.getPosition().getY());
     }
 
     private void moveVertically(Entity userEntity, int distance) {
         grid[(int) userEntity.getPosition().getX()][(int) userEntity.getPosition().getY()] = '\u0000';
-        userEntity.setPosition(new Point((int) userEntity.getPosition().getX(), (int) userEntity.getPosition().getY() + distance));
+        userEntity.setPosition(new Point((int) userEntity.getPosition().getX() + distance, (int) userEntity.getPosition().getY()));
         grid[(int) userEntity.getPosition().getX()][(int) userEntity.getPosition().getY()] = userEntity.getName();
+        System.out.printf("Moved to (%s, %s)\n", userEntity.getPosition().getX(), userEntity.getPosition().getY());
     }
 }
