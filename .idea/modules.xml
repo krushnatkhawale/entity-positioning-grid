@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entity-positioning-grid.iml" filepath="$PROJECT_DIR$/.idea/modules/entity-positioning-grid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entity-positioning-grid_main.iml" filepath="$PROJECT_DIR$/.idea/modules/entity-positioning-grid_main.iml" group="entity-positioning-grid" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entity-positioning-grid_test.iml" filepath="$PROJECT_DIR$/.idea/modules/entity-positioning-grid_test.iml" group="entity-positioning-grid" />
+    </modules>
+  </component>
+</project>
